@@ -33,12 +33,15 @@ jobs:
     - name: Upload pipeline
       run: |
         plid="$(./kfplctl upload mnist-pipeline --pipeline mnist_pipeline.py.tar.gz)"
+        echo ${plid}
     - name: Create experiment
       run: |
         eid="$(./kfplctl create experiment mnist)"
+        echo ${eid}
     - name: Create run
       run: |
         rid="$(./kfplctl create run mnist --parameters mnistParams.json --pipeline-id $plid --experiment-id $eid)"
+        echo ${rid}
     - name: Get run status
       run: |
-        ./kfplctl get run $rid
+        ./kfplctl get run $rid status
