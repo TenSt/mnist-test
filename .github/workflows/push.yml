@@ -32,11 +32,11 @@ jobs:
         ./kfplctl get pipelines
     - name: Upload pipeline
       run: |
-        plid="$(./kfplctl upload mnist-pipeline --pipeline mnist_pipeline.py.tar.gz)"
+        export plid="$(./kfplctl upload mnist-pipeline --pipeline mnist_pipeline.py.tar.gz)"
         echo ${plid}
     - name: Create experiment
       run: |
-        eid="$(./kfplctl create experiment mnist)"
+        export eid="$(./kfplctl create experiment mnist)"
         echo ${eid}
     - name: Create run
       run: |
