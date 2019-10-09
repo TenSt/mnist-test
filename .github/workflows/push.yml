@@ -28,5 +28,17 @@ jobs:
         chmod +x ./kfplctl
     - name: Get all Pipelines
       run: |
-        export KUBEFLOW_PIPELINE_API=http://188.40.161.51:8888
+        export KUBEFLOW_PIPELINE_API=${{ secrets.KUBEFLOW_PIPELINE_API }}
         ./kfplctl get pipelines
+    - name: Upload pipeline
+      run: |
+        plid="$(./kfplctl upload mnist-pipeline --pipeline mnist_pipeline.py.tar.gz)"
+    - name: Create experiment
+      run: |
+        eid="$(./kfplctl create experiment mnist)"
+    - name: Create run
+      run: |
+        rid="$(./kfplctl create run mnist --parameters mnistParams.json --pipeline-id $plid --experiment-id $eid)"
+    - name: Get run status
+      run: |
+        ./kfplctl get run $rid
