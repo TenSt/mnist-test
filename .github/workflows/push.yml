@@ -43,6 +43,8 @@ jobs:
         # rid="$(./kfplctl create run mnist --parameters mnistParams.json --pipeline-id $plid --experiment-id $eid)"
         # echo ${rid}
         # troubleshooting 1
+        echo ${plid}
+        echo ${eid}
         ./kfplctl create run mnist --parameters mnistParams.json --pipeline-id ${plid} --experiment-id ${eid}
     # - name: Get run status
     #   run: |
